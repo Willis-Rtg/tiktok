@@ -84,6 +84,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.white,
         title: AnimatedOpacity(
           duration: const Duration(milliseconds: 300),
           opacity: _showTitle ? 1 : 0,
@@ -131,6 +132,8 @@ class _InterestsScreenState extends State<InterestsScreen> {
         ),
       ),
       bottomNavigationBar: const BottomAppBar(
+          elevation: 0,
+          color: Colors.white,
           padding: EdgeInsets.symmetric(
               vertical: Sizes.size14, horizontal: Sizes.size16),
           child: FormButton(

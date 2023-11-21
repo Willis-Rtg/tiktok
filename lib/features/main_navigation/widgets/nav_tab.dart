@@ -9,12 +9,14 @@ class NavTab extends StatelessWidget {
     required this.text,
     required this.isSelected,
     required this.onTap,
+    required this.darkMode,
   });
 
   final IconData icon;
   final String text;
   final bool isSelected;
   final Function onTap;
+  final bool darkMode;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -24,19 +26,19 @@ class NavTab extends StatelessWidget {
           duration: const Duration(milliseconds: 300),
           opacity: isSelected ? 1 : 0.6,
           child: Container(
-            color: Colors.black,
+            color: darkMode ? Colors.black : Colors.white,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 FaIcon(
                   icon,
-                  color: Colors.white,
+                  color: darkMode ? Colors.white : Colors.black,
                 ),
                 Gaps.v5,
                 Text(
                   text,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: darkMode ? Colors.white : Colors.black,
                   ),
                 ),
               ],
