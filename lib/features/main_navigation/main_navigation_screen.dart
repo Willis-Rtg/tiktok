@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/features/discover/discover_screen.dart';
+import 'package:tiktok/features/inbox/inbox_screen.dart';
 import 'package:tiktok/features/main_navigation/widgets/nav_tab.dart';
 import 'package:tiktok/features/main_navigation/widgets/post_video_button.dart';
 import 'package:tiktok/features/videos/video_timeline_screen.dart';
@@ -23,14 +24,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       child: Text("Plus"),
     ),
     const Center(
-      child: Text("Inbox"),
+      child: InboxScreen(),
     ),
     const Center(
       child: Text("Profile"),
     ),
   ];
 
-  int _selectedIndex = 1;
+  int _selectedIndex = 3;
 
   void _onTap(int index) {
     setState(() {
