@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/features/videos/widgets/video_button.dart';
-import 'package:tiktok/features/videos/widgets/video_comments.dart';
+import 'package:tiktok/features/video/widgets/video_button.dart';
+import 'package:tiktok/features/video/widgets/video_comments.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -63,6 +63,7 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
+    if (!mounted) return;
     if (info.visibleFraction * 100 == 100 &&
         _isPlay &&
         !_videoPlayerController.value.isPlaying) {

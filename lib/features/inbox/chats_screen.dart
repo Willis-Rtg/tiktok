@@ -154,14 +154,16 @@ class _ChatsScreenState extends State<ChatsScreen>
                 itemBuilder: (context, index, animation) => SizeTransition(
                   sizeFactor: animation,
                   child: FadeTransition(
-                      key: UniqueKey(),
-                      opacity: animation,
-                      child: _makeTile(index)),
+                    key: UniqueKey(),
+                    opacity: animation,
+                    child: _makeTile(index),
+                  ),
                 ),
               ),
             ],
           ),
         ),
+        // Chat settings modal
         if (_showBarrier)
           FadeTransition(
             opacity: _chatSettingAnimation,
