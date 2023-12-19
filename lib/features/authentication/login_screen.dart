@@ -1,42 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/login_form_screen.dart';
 import 'package:tiktok/features/authentication/widgets/auth_button.dart';
+import 'package:tiktok/utils.dart';
 
 class LoginScreen extends StatelessWidget {
+  static String routeName = "/login";
   const LoginScreen({super.key});
 
   void onSignUpTap(BuildContext context) {
-    Navigator.of(context).pop();
+    context.pop();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const SafeArea(
+      body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: Sizes.size32),
+          padding: const EdgeInsets.symmetric(horizontal: Sizes.size32),
           child: Column(
             children: [
               Gaps.v64,
               Text(
                 "Log in to TikTok",
-                style: TextStyle(
-                    fontSize: Sizes.size24, fontWeight: FontWeight.w700),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall!
+                    .copyWith(fontWeight: FontWeight.w700),
               ),
               Gaps.v12,
-              Text(
-                "Manage your account, check notifications, comment on videos, and more.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: Sizes.size14,
-                  color: Colors.black54,
+              Opacity(
+                opacity: 0.7,
+                child: Text(
+                  "Manage your account, check notifications, comment on videos, and more.",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
               Gaps.v52,
-              AuthButton(
+              const AuthButton(
                 icon: FaIcon(FontAwesomeIcons.user),
                 text: "Use phone or email",
                 onTapPage: LoginFormScreen(),
@@ -56,7 +61,7 @@ class LoginScreen extends StatelessWidget {
       ),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
-        color: Colors.grey.shade50,
+        color: isDarkMode(context) ? null : Colors.grey.shade50,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

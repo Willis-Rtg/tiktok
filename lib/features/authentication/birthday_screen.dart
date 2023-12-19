@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/email_screen.dart';
@@ -37,7 +38,9 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const EmailScreen(),
+        builder: (context) => const EmailScreen(
+          username: "",
+        ),
       ),
     );
   }
@@ -48,11 +51,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
   }
 
   void _onBtnTap() {
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const InterestsScreen()),
-      (route) => false,
-    );
+    context.push(const InterestsScreen().routeName);
   }
 
   @override
@@ -113,8 +112,8 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
+        height: 220,
         child: SizedBox(
-          height: 250,
           child: CupertinoDatePicker(
             maximumDate: initialDate,
             initialDateTime: initialDate,

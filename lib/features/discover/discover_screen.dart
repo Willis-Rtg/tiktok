@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok/constants/breakpoint.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/discover/widgets/search_textfield.dart';
@@ -45,7 +45,11 @@ class _DiscoverScreenState extends State<DiscoverScreen>
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const SearchTextfield(),
+        title: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: Breakpoints.sm,
+            ),
+            child: const SearchTextfield()),
         elevation: 0,
         actions: [
           IconButton(
@@ -58,9 +62,6 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             fontWeight: FontWeight.w600,
           ),
           padding: const EdgeInsets.symmetric(horizontal: 0),
-          indicatorColor: Colors.black,
-          labelColor: Colors.black,
-          unselectedLabelColor: Colors.grey.shade500,
           indicatorSize: TabBarIndicatorSize.tab,
           isScrollable: true,
           splashFactory: NoSplash.splashFactory,
@@ -79,79 +80,94 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             itemCount: 20,
             padding: const EdgeInsets.all(Sizes.size10),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount:
+                    MediaQuery.of(context).size.width > Breakpoints.lg ? 5 : 2,
                 crossAxisSpacing: Sizes.size10,
                 mainAxisSpacing: Sizes.size12,
                 childAspectRatio: 9 / 20),
-            itemBuilder: (context, index) => Column(
-              children: [
-                Container(
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(Sizes.size2),
-                  ),
-                  child: AspectRatio(
-                    aspectRatio: 9 / 16,
-                    child: FadeInImage.assetNetwork(
-                      fit: BoxFit.cover,
-                      placeholderFit: BoxFit.cover,
-                      placeholder: "assets/images/placeholder.jpeg",
-                      image:
-                          "https://images.unsplash.com/photo-1700639491303-a177c4402501?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    ),
-                  ),
-                ),
-                Gaps.v10,
-                const Text(
-                  "Est aliquip Lorem ad magna minim laboris. Officia magna deserunt do exercitation.",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: Sizes.size16,
-                    color: Colors.black87,
-                    height: 1.2,
-                  ),
-                ),
-                Gaps.v4,
-                Row(
+            itemBuilder: (context, index) => LayoutBuilder(
+              builder: (context, constraints) {
+                return Column(
                   children: [
-                    const CircleAvatar(
-                      radius: 13,
-                      foregroundImage: NetworkImage(
-                          "https://d1telmomo28umc.cloudfront.net/media/public/avatars/wills-1636619076.jpg"),
-                    ),
-                    Gaps.h5,
-                    Expanded(
-                      child: Text(
-                        "Aute magna irure consequat laborum magna veniam tempor do.",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: Sizes.size14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey.shade600,
+                    Container(
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Sizes.size2),
+                      ),
+                      child: AspectRatio(
+                        aspectRatio: 9 / 16,
+                        child: FadeInImage.assetNetwork(
+                          fit: BoxFit.cover,
+                          placeholderFit: BoxFit.cover,
+                          placeholder: "assets/images/placeholder.jpeg",
+                          image:
+                              "https://images.unsplash.com/photo-1700639491303-a177c4402501?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                         ),
                       ),
                     ),
-                    FaIcon(
-                      FontAwesomeIcons.heart,
-                      size: Sizes.size14,
-                      color: Colors.grey.shade600,
-                    ),
-                    Gaps.h3,
-                    Text(
-                      "2.0M",
-                      style: TextStyle(
-                        fontSize: Sizes.size12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.grey.shade600,
+                    Gaps.v6,
+                    const Opacity(
+                      opacity: 0.8,
+                      child: Text(
+                        "Est aliquip Lorem ad magna minim laboris. Officia magna deserunt do exercitation.",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: Sizes.size16,
+                          height: 1.2,
+                        ),
                       ),
-                    )
+                    ),
+                    Gaps.v4,
+                    if ((constraints.maxWidth > 250 ||
+                        constraints.maxWidth < 200))
+                      const Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 13,
+                            foregroundImage: NetworkImage(
+                                "https://avatars.githubusercontent.com/u/45223148?v=4"),
+                          ),
+                          Gaps.h5,
+                          Expanded(
+                            child: Opacity(
+                              opacity: 0.6,
+                              child: Text(
+                                "Aute magna irure consequat laborum magna veniam tempor do.",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: Sizes.size14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Opacity(
+                            opacity: 0.6,
+                            child: FaIcon(
+                              FontAwesomeIcons.heart,
+                              size: Sizes.size14,
+                            ),
+                          ),
+                          Gaps.h2,
+                          Opacity(
+                            opacity: 0.6,
+                            child: Text(
+                              "2.0M",
+                              style: TextStyle(
+                                fontSize: Sizes.size12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          )
+                        ],
+                      )
                   ],
-                )
-              ],
+                );
+              },
             ),
           ),
           for (var tab in tabs.skip(1))

@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/video/widgets/video_button.dart';
 import 'package:tiktok/features/video/widgets/video_comments.dart';
+import 'package:tiktok/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -32,6 +33,9 @@ class _VideoPostState extends State<VideoPost>
     await _videoPlayerController.setLooping(true);
     setState(() {});
     _videoPlayerController.addListener(_onVideoChange);
+    if (kIsWeb) {
+      await _videoPlayerController.setVolume(0);
+    }
   }
 
   void _onVideoChange() {
@@ -117,6 +121,15 @@ class _VideoPostState extends State<VideoPost>
       scrollControlDisabledMaxHeightRatio: 0.75,
     );
     alreadyPause ? null : _onTogglePause();
+  }
+
+  void _toggleVolume(double volume) {
+    if (_videoPlayerController.value.volume != 0) {
+      _videoPlayerController.setVolume(0);
+    } else {
+      _videoPlayerController.setVolume(volume);
+    }
+    setState(() {});
   }
 
   @override
@@ -225,16 +238,28 @@ class _VideoPostState extends State<VideoPost>
                       "Willis".substring(0, 3),
                     )),
                 Gaps.v20,
-                const VideoButton(
-                    icon: FontAwesomeIcons.solidHeart, text: "2.9M"),
+                VideoButton(
+                    icon: FontAwesomeIcons.solidHeart,
+                    text: S.of(context).likeCount(12478947839223)),
                 Gaps.v20,
                 GestureDetector(
                   onTap: _onCommetTap,
-                  child: const VideoButton(
-                      icon: FontAwesomeIcons.solidMessage, text: "33.0k"),
+                  child: VideoButton(
+                      icon: FontAwesomeIcons.solidMessage,
+                      text: S.of(context).commentCount(4125432)),
                 ),
                 Gaps.v20,
                 const VideoButton(icon: FontAwesomeIcons.share, text: "Share"),
+                Gaps.v20,
+                GestureDetector(
+                  onTap: () => _toggleVolume(1),
+                  child: VideoButton(
+                    icon: _videoPlayerController.value.volume == 0
+                        ? FontAwesomeIcons.volumeXmark
+                        : FontAwesomeIcons.volumeHigh,
+                    text: "volume",
+                  ),
+                ),
               ],
             ),
           )

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/main_navigation/main_navigation_screen.dart';
+import 'package:tiktok/utils.dart';
 
 enum Direction { right, left }
 
@@ -38,10 +40,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
   }
 
   void _onEnterAppTap() {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
-        (route) => false);
+    context.push(const MainNavigationScreen().routeName);
   }
 
   @override
@@ -70,11 +69,13 @@ class _TutorialScreenState extends State<TutorialScreen> {
                     ),
                   ),
                   Gaps.v10,
-                  Text(
-                    "Videos are personalized for you based on what you watch, like, and share.",
-                    style: TextStyle(
-                      fontSize: Sizes.size20,
-                      color: Colors.black54,
+                  Opacity(
+                    opacity: 0.7,
+                    child: Text(
+                      "Videos are personalized for you based on what you watch, like, and share.",
+                      style: TextStyle(
+                        fontSize: Sizes.size20,
+                      ),
                     ),
                   ),
                 ],
@@ -91,11 +92,13 @@ class _TutorialScreenState extends State<TutorialScreen> {
                     ),
                   ),
                   Gaps.v10,
-                  Text(
-                    "Videos are personalized for you based on what you watch, like, and share.",
-                    style: TextStyle(
-                      fontSize: Sizes.size20,
-                      color: Colors.black54,
+                  Opacity(
+                    opacity: 0.7,
+                    child: Text(
+                      "Videos are personalized for you based on what you watch, like, and share.",
+                      style: TextStyle(
+                        fontSize: Sizes.size20,
+                      ),
                     ),
                   ),
                 ],
@@ -104,7 +107,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ),
         ),
         bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
+          color: isDarkMode(context) ? Colors.black : Colors.white,
           elevation: 0,
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 400),
@@ -112,7 +115,10 @@ class _TutorialScreenState extends State<TutorialScreen> {
             child: CupertinoButton(
               color: Theme.of(context).primaryColor,
               onPressed: _onEnterAppTap,
-              child: const Text("Next"),
+              child: const Text(
+                "Next",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ),

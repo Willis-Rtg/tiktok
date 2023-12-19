@@ -6,10 +6,13 @@ import 'package:tiktok/features/inbox/inbox_screen.dart';
 import 'package:tiktok/features/main_navigation/widgets/nav_tab.dart';
 import 'package:tiktok/features/main_navigation/widgets/post_video_button.dart';
 import 'package:tiktok/features/user/user_profile_screen.dart';
+import 'package:tiktok/features/video/video_recording_screen.dart';
 import 'package:tiktok/features/video/video_timeline_screen.dart';
+import 'package:tiktok/utils.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
+  final String routeName = "/main";
 
   @override
   State<MainNavigationScreen> createState() => _MainNavigationScreenState();
@@ -22,17 +25,20 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       child: DiscoverScreen(),
     ),
     const Center(
-      child: Text("Plus"),
+      child: VideoRecordingScreen(),
     ),
     const Center(
       child: InboxScreen(),
     ),
     const Center(
-      child: UserProfileScreen(),
+      child: UserProfileScreen(
+        username: "Willis",
+        tab: "",
+      ),
     ),
   ];
 
-  int _selectedIndex = 4;
+  int _selectedIndex = 1;
 
   void _onTap(int index) {
     setState(() {
@@ -57,7 +63,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _selectedIndex == 0 ? Colors.black : Colors.white,
+      backgroundColor: _selectedIndex == 0 || isDarkMode(context)
+          ? Colors.black
+          : Colors.white,
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
@@ -80,7 +88,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: _selectedIndex == 0 ? Colors.black : Colors.white,
+        color: _selectedIndex == 0 || isDarkMode(context)
+            ? Colors.black
+            : Colors.white,
         elevation: 0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,14 +101,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               text: "Home",
               isSelected: _selectedIndex == 0,
               onTap: () => _onTap(0),
-              darkMode: _selectedIndex == 0,
+              inverted: _selectedIndex == 0,
             ),
             NavTab(
               icon: FontAwesomeIcons.magnifyingGlass,
               text: "Discover",
               isSelected: _selectedIndex == 1,
               onTap: () => _onTap(1),
-              darkMode: _selectedIndex == 0,
+              inverted: _selectedIndex == 0,
             ),
             Gaps.h24,
             GestureDetector(
@@ -111,14 +121,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               text: "Inbox",
               isSelected: _selectedIndex == 3,
               onTap: () => _onTap(3),
-              darkMode: _selectedIndex == 0,
+              inverted: _selectedIndex == 0,
             ),
             NavTab(
               icon: FontAwesomeIcons.user,
               text: "Profile",
               isSelected: _selectedIndex == 4,
               onTap: () => _onTap(4),
-              darkMode: _selectedIndex == 0,
+              inverted: _selectedIndex == 0,
             ),
           ],
         ),

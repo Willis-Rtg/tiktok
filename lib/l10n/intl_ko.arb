@@ -1,0 +1,43 @@
+{
+  "signUpTitle": "{nameOfTheApp}에 가입하세요 {when}",
+  "signUpSubtitle": "Create a profile, follow other accounts, make your own videos, and more.",
+  "emailPhoneButton": "Use phone or email",
+  "facebookButton": "Continue with Facebook",
+  "appleButton": "Continue with Apple",
+  "googleButton": "Continue with Google",
+  "alreadyHaveAnAccount": "Already have an account? ",
+  "login": "Login",
+  "likeCount": "{value}",
+  "@likeCount": {
+    "description": "Anything you want",
+    "placeholders": {
+      "value": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "commentCount": "{value}",
+  "@commentCount": {
+    "description": "Anything you want",
+    "placeholders": {
+      "value": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "commentTitle": "{value} {value2, plural, =1{comment} other{comments}}",
+  "@commentTitle": {
+    "description": "Anything you want",
+    "placeholders": {
+      "value": {
+        "type": "int",
+        "format": "compact"
+      },
+      "value2": {
+        "type": "int"
+      }
+    }
+  }
+}

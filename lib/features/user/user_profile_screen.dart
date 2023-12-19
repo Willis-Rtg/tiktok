@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok/constants/breakpoint.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/setting/setting_screen.dart';
 import 'package:tiktok/features/user/widgets/persistent_tab_bar.dart';
+import 'package:tiktok/utils.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key});
+  const UserProfileScreen(
+      {super.key, required this.username, required this.tab});
+
+  final String username;
+  final String tab;
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -39,14 +45,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: DefaultTabController(
+        initialIndex: widget.tab == "likes" ? 1 : 0,
         length: 2,
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                title: const Text("Willis"),
+                backgroundColor: isDarkMode(context) ? Colors.black : null,
+                title: Text(widget.username),
                 actions: [
                   IconButton(
                     onPressed: _onSettingTap,
@@ -65,12 +74,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       child: Text("Willis"),
                     ),
                     Gaps.v5,
-                    const Row(
+                    Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text("@Willis"),
+                        Text("@${widget.username}"),
                         Gaps.h4,
-                        FaIcon(
+                        const FaIcon(
                           FontAwesomeIcons.solidCircleCheck,
                           size: Sizes.size12,
                           color: Colors.lightBlue,
@@ -225,8 +234,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       ScrollViewKeyboardDismissBehavior.onDrag,
                   itemCount: 20,
                   padding: const EdgeInsets.symmetric(vertical: Sizes.size5),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: size.width > Breakpoints.lg ? 5 : 3,
                       crossAxisSpacing: Sizes.size2,
                       mainAxisSpacing: Sizes.size2,
                       childAspectRatio: 9 / 12),

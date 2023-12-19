@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/utils.dart';
 
 class SearchTextfield extends StatefulWidget {
   const SearchTextfield({super.key});
@@ -39,6 +40,8 @@ class _SearchTextfieldState extends State<SearchTextfield> {
       height: Sizes.size40,
       width: 1000,
       child: TextField(
+        style:
+            TextStyle(color: isDarkMode(context) ? Colors.white : Colors.black),
         controller: _textEditingController,
         onChanged: _onSearchChange,
         onSubmitted: _onSearchSubmitted,
@@ -49,7 +52,8 @@ class _SearchTextfieldState extends State<SearchTextfield> {
                 Sizes.size5,
               ),
               borderSide: BorderSide.none),
-          fillColor: Colors.grey.shade200,
+          fillColor:
+              isDarkMode(context) ? Colors.grey.shade800 : Colors.grey.shade200,
           filled: true,
           contentPadding: const EdgeInsets.all(0),
           icon: const FaIcon(FontAwesomeIcons.angleLeft),

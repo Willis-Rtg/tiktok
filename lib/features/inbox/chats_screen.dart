@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok/constants/breakpoint.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/inbox/chat_detail_screen.dart';
@@ -93,7 +94,7 @@ class _ChatsScreenState extends State<ChatsScreen>
             const CircleAvatar(
               radius: 34,
               backgroundImage: NetworkImage(
-                  "https://d1telmomo28umc.cloudfront.net/media/public/avatars/wills-1636619076.jpg"),
+                  "https://avatars.githubusercontent.com/u/45223148?v=4"),
             ),
             Expanded(
               child: Padding(
@@ -136,31 +137,36 @@ class _ChatsScreenState extends State<ChatsScreen>
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Scaffold(
-          appBar: AppBar(
-            title: const Text("Direct messages"),
-            actions: [
-              IconButton(
-                highlightColor: Colors.transparent,
-                onPressed: _onPlusTap,
-                icon: const FaIcon(FontAwesomeIcons.plus),
-              ),
-            ],
-          ),
-          body: Stack(
-            children: [
-              AnimatedList(
-                key: _key,
-                itemBuilder: (context, index, animation) => SizeTransition(
-                  sizeFactor: animation,
-                  child: FadeTransition(
-                    key: UniqueKey(),
-                    opacity: animation,
-                    child: _makeTile(index),
+        Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: Breakpoints.sm),
+            child: Scaffold(
+              appBar: AppBar(
+                title: const Text("Direct messages"),
+                actions: [
+                  IconButton(
+                    highlightColor: Colors.transparent,
+                    onPressed: _onPlusTap,
+                    icon: const FaIcon(FontAwesomeIcons.plus),
                   ),
-                ),
+                ],
               ),
-            ],
+              body: Stack(
+                children: [
+                  AnimatedList(
+                    key: _key,
+                    itemBuilder: (context, index, animation) => SizeTransition(
+                      sizeFactor: animation,
+                      child: FadeTransition(
+                        key: UniqueKey(),
+                        opacity: animation,
+                        child: _makeTile(index),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
         // Chat settings modal

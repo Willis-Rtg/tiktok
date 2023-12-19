@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok/features/video/widgets/video_post.dart';
 
 class VideoTimelineScreen extends StatefulWidget {
   const VideoTimelineScreen({super.key});
+  final routeName = "/video/timeline";
 
   @override
   State<VideoTimelineScreen> createState() => _VideoTimelineScreenState();
@@ -18,8 +18,11 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
   final PageController _pageController = PageController();
 
   void _onPageChanged(int page) {
-    _pageController.animateToPage(page,
-        duration: const Duration(milliseconds: 150), curve: Curves.linear);
+    _pageController.animateToPage(
+      page,
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.linear,
+    );
     if (page == _itemCount - 1) {
       _itemCount = _itemCount + 4;
       setState(() {});

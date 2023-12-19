@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/utils.dart';
 
 class PersistentTabBar extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final isDark = isDarkMode(context);
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDark ? Colors.black : Colors.white,
         border: Border.symmetric(
           horizontal: BorderSide(
-            color: Colors.grey.shade100,
+            color: isDark ? Colors.grey.shade800 : Colors.grey.shade100,
             width: 1,
           ),
         ),
       ),
-      child: TabBar(
-        tabs: const [
+      child: const TabBar(
+        tabs: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Sizes.size20),
             child: Tab(
@@ -31,9 +33,9 @@ class PersistentTabBar extends SliverPersistentHeaderDelegate {
             ),
           )
         ],
-        labelColor: Colors.black,
-        dividerColor: Colors.grey.shade100,
-        indicatorColor: Colors.black,
+        // labelColor: Colors.black,
+        // dividerColor: Colors.grey.shade100,
+        // indicatorColor: Colors.black,
         indicatorSize: TabBarIndicatorSize.label,
         splashFactory: NoSplash.splashFactory,
       ),

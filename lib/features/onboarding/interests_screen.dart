@@ -4,6 +4,7 @@ import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/widgets/form_button.dart';
 import 'package:tiktok/features/onboarding/tutorial_screen.dart';
 import 'package:tiktok/features/onboarding/widgets/interest_button.dart';
+import 'package:tiktok/utils.dart';
 
 const interests = [
   "Daily Life",
@@ -48,6 +49,7 @@ const interests = [
 
 class InterestsScreen extends StatefulWidget {
   const InterestsScreen({super.key});
+  final String routeName = "/interests";
 
   @override
   State<InterestsScreen> createState() => _InterestsScreenState();
@@ -109,12 +111,14 @@ class _InterestsScreenState extends State<InterestsScreen> {
                   ),
                 ),
                 Gaps.v16,
-                const Text(
-                  "Get better video recommendations",
-                  style: TextStyle(
-                    fontSize: Sizes.size20,
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w400,
+                const Opacity(
+                  opacity: 0.7,
+                  child: Text(
+                    "Get better video recommendations",
+                    style: TextStyle(
+                      fontSize: Sizes.size20,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
                 Gaps.v28,
@@ -131,12 +135,12 @@ class _InterestsScreenState extends State<InterestsScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomAppBar(
+      bottomNavigationBar: BottomAppBar(
           elevation: 0,
-          color: Colors.white,
-          padding: EdgeInsets.symmetric(
+          color: isDarkMode(context) ? null : Colors.white,
+          padding: const EdgeInsets.symmetric(
               vertical: Sizes.size14, horizontal: Sizes.size16),
-          child: FormButton(
+          child: const FormButton(
             disabled: false,
             text: "Next",
             nextPage: TutorialScreen(),

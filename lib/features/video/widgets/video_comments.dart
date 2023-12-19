@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok/constants/breakpoint.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/generated/l10n.dart';
+import 'package:tiktok/utils.dart';
 
 class VideoComments extends StatefulWidget {
   const VideoComments({super.key});
@@ -41,17 +43,17 @@ class _VideoCommentsState extends State<VideoComments> {
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(Sizes.size12)),
       child: Scaffold(
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: isDarkMode(context) ? null : Colors.grey.shade50,
         appBar: AppBar(
           elevation: 0,
-          surfaceTintColor: Colors.grey.shade50,
-          title: const Text(
-            "22403 comments",
-            style: TextStyle(
+          surfaceTintColor: isDarkMode(context) ? null : Colors.grey.shade50,
+          title: Text(
+            S.of(context).commentTitle(2, 2),
+            style: const TextStyle(
               fontSize: Sizes.size14 + Sizes.size1,
             ),
           ),
-          backgroundColor: Colors.grey.shade50,
+          backgroundColor: isDarkMode(context) ? null : Colors.grey.shade50,
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
@@ -124,16 +126,20 @@ class _VideoCommentsState extends State<VideoComments> {
               ),
               Positioned(
                 bottom: 0,
-                width: screenSize.width,
+                width: Breakpoints.sm < screenSize.width
+                    ? Breakpoints.sm
+                    : screenSize.width,
                 child: BottomAppBar(
                   elevation: 0,
                   height: 70,
-                  color: Colors.white,
+                  color: isDarkMode(context) ? null : Colors.white,
                   child: Row(
                     children: [
                       CircleAvatar(
                         backgroundColor: Colors.grey.shade400,
                         foregroundColor: Colors.white,
+                        foregroundImage: const NetworkImage(
+                            "https://avatars.githubusercontent.com/u/45223148?v=4"),
                         child: Text(
                           "Willis".substring(0, 3),
                         ),
@@ -156,7 +162,9 @@ class _VideoCommentsState extends State<VideoComments> {
                                   borderSide: BorderSide.none,
                                 ),
                                 filled: true,
-                                fillColor: Colors.grey.shade200,
+                                fillColor: isDarkMode(context)
+                                    ? Colors.grey.shade700
+                                    : Colors.grey.shade200,
                                 contentPadding: const EdgeInsets.symmetric(
                                   horizontal: Sizes.size10,
                                 ),
